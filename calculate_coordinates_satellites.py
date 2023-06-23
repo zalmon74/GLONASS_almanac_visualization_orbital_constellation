@@ -51,8 +51,8 @@ class CalculateCoorditaesSatelite:
     """ Класс позволяет посчитать координаты КА по заданному альманаху
     """
     
-    def get_lst_all_sat_coodinates_speed(self) -> list[tuple[tuple[float]]]:
-        """ Позволяем пользователю получить список с координатами и 
+    def get_lst_all_sat_coordinates_speed(self) -> list[tuple[tuple[float]]]:
+        """ Позволяет пользователю получить список с координатами и 
             скоростями для КА
 
         Returns:
@@ -63,6 +63,17 @@ class CalculateCoorditaesSatelite:
             self._almanac = self._read_my_alm_file()
             self._calculate_coordinates_for_all_sat()
         return self._lst_coord_speed_all_sat
+    
+    def get_lst_all_sat_coordinates(self) -> list[tuple[float]]:
+        """ Позволяет пользователю получить список с координатами КА
+
+        Returns:
+            list[tuple[float]]: Список с координатами для каждого КА. 
+                (1 картеж = 1 КА). В картеже координаты располагаются (x, y, z)
+        """
+        coordinates_speed = self.get_lst_all_sat_coordinates_speed()
+        coordinates =  list(map(lambda x: tuple(x[0]), coordinates_speed))
+        return coordinates
     
     def __init__(self, path_alaman_file: str) -> None:
         """ Конструктор
